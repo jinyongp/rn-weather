@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Alert } from "react-native";
 import * as Location from "expo-location";
 import Axios from "axios";
-import Loading from "./components/Loading";
+import { Loading, Weather } from "./components";
 import Env from "./environment";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
-  const [weather, setWeather] = useState(null);
+  const [temp, setTemp] = useState(0);
+  const [condition, setCondition] = useState("");
 
   const getLocation = async () => {
     try {
@@ -25,10 +26,11 @@ export default function App() {
   };
 
   const getWeather = async (latitude, longitude) => {
-    const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${Env.WEATHER_API_KEY}`;
+    const API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=kr&appid=${Env.WEATHER_API_KEY}`;
     try {
       const { data } = await Axios.get(API_URL);
-      console.log(data);
+      setTemp(data?.main.temp);
+      setCondition(data?.weather[0].main);
     } catch (error) {
       console.log(error);
     }
@@ -42,7 +44,11 @@ export default function App() {
   }, []);
   return (
     <View style={styles.container}>
-      {loading ? <Loading /> : null}
+      {loading ? (
+        <Loading />
+      ) : (
+        <Weather temp={Math.round(temp)} condition={condition} />
+      )}
       <StatusBar style="auto" />
     </View>
   );
