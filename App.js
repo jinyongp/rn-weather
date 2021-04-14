@@ -29,7 +29,7 @@ export default function App() {
       const { data } = await Axios.get(API_URL);
       setCondition(data?.weather[0].main);
       setTemp(data?.main.temp);
-      setTimeout(() => setLoading(false), 1500);
+      setTimeout(() => setLoading(false), 1000);
     } catch (error) {
       console.log(error);
     }

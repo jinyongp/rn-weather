@@ -5,33 +5,62 @@ import { LinearGradient } from "expo-linear-gradient";
 import PropTypes from "prop-types";
 
 const getWeatherOptions = (condition) => {
-  const setOptions = (icon, gradient) => ({ icon, gradient });
+  const setOptions = (icon, gradient, title, subtitle) => ({
+    icon,
+    gradient,
+    title,
+    subtitle,
+  });
   switch (condition) {
     case "Thunderstorm":
-      return setOptions("weather-lightning", ["#373B44", "#4286f4"]);
+      return setOptions(
+        "weather-lightning",
+        ["#373B44", "#4286f4"],
+        "Thunderstorm in the house",
+        "Actually, outside of the house"
+      );
     case "Drizzle":
-      return setOptions("weather-hail", ["#89F7FE", "#66A6FF"]);
+      return setOptions(
+        "weather-hail",
+        ["#89F7FE", "#66A6FF"],
+        "Drizzle",
+        "Good day to sing in the drizzle"
+      );
     case "Rain":
-      return setOptions("weather-rainy", ["#00C6FB", "#005BEA"]);
+      return setOptions(
+        "weather-rainy",
+        ["#00C6FB", "#005BEA"],
+        "Rain rain rain",
+        "You'd have a new car yesterday, wouldn't you?"
+      );
     case "Snow":
-      return setOptions("weather-snowy", ["#7DE2FC", "#B9B6E5"]);
-    case "Mist":
-    case "Smoke":
-    case "Haze":
-    case "Dust":
-    case "Fog":
-    case "Sand":
-    case "Dust":
-    case "Ash":
-    case "Squall":
-    case "Tornado":
-      return setOptions("", ["", ""]);
+      return setOptions(
+        "weather-snowy",
+        ["#7DE2FC", "#B9B6E5"],
+        "Snow!",
+        "Do You Want to Build A Snowman? Okay bye..."
+      );
     case "Clear":
-      return setOptions("weather-sunny", ["#FF7300", "#FEF253"]);
+      return setOptions(
+        "weather-sunny",
+        ["#FF7300", "#FEF253"],
+        "Sunny",
+        "How about taking a walk outside?"
+      );
     case "Clouds":
-      return setOptions("weather-cloudy", ["#D7D2CC", "#304352"]);
+      return setOptions(
+        "weather-cloudy",
+        ["#D7D2CC", "#304352"],
+        condition,
+        "It's perfect for sleeping late today."
+      );
     default:
-      return setOptions("cloud-question", ["#2193b0", "#6dd5ed"]);
+      return setOptions(
+        "cloud-question",
+        ["#0F2027", "#2C5364"],
+        condition,
+        "Wake up and look outside"
+      );
   }
 };
 
@@ -42,7 +71,7 @@ export default function Weather({ temp, condition }) {
       style={styles.container}
     >
       <StatusBar barStyle="light-content" />
-      <View style={styles.half}>
+      <View style={styles.halfContainer}>
         <MaterialCommunityIcons
           name={getWeatherOptions(condition).icon}
           size={96}
@@ -50,8 +79,11 @@ export default function Weather({ temp, condition }) {
         />
         <Text style={styles.temp}>{temp}℃</Text>
       </View>
-      <View style={styles.half}>
-        <Text style={styles.condition}>{condition}</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{getWeatherOptions(condition).title}</Text>
+        <Text style={styles.subtitle}>
+          {getWeatherOptions(condition).subtitle}
+        </Text>
       </View>
     </LinearGradient>
   );
@@ -63,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  half: {
+  halfContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -72,8 +104,20 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: "white",
   },
-  condition: {
+  titleContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    paddingHorizontal: 20,
+  },
+  title: {
     fontSize: 42,
+    color: "white",
+    fontWeight: "300",
+    marginBottom: 20,
+  },
+  subtitle: {
+    fontSize: 30,
     color: "white",
   },
 });
