@@ -46,11 +46,15 @@ const styles = StyleSheet.create({
 });
 ```
 
-## Location API
+## API
 
-```sh
-> expo install expo-location
-```
+### [Weather API](https://openweathermap.org/api)
+
+`environment.sample.js` 파일에서 API key를 수정하고 `environment.js`로 이름을 변경한다.
+
+## Packages
+
+### [Location](https://docs.expo.io/versions/latest/sdk/location/)
 
 ```jsx
 import * as Location from "expo-location";
@@ -68,8 +72,8 @@ async function getLocation() {
 
 `requestPermissionsAsync()`에서 권한 허가 요청을 수락하면 `getCurrentPositionAsync()` 함수 호출에서 현재 위치를 가져올 수 있다. 권한이 거부된다면 다시 요청하지 않고 `getCurrentPositionAsync()` 함수에서 에러를 발생시켜 경고창이 뜬다.
 
-## Weather API
+### [@expo/vector-icons](https://docs.expo.io/guides/icons/)
 
-[Go to API Site](https://openweathermap.org/api)
+[Browse Expo Vector Icons](https://icons.expo.fyi/)
 
-`environment.sample.js` 파일에서 API key를 수정하고 `environment.js`로 이름을 변경한다.
+### [Expo Linear Gradient](https://docs.expo.io/versions/latest/sdk/linear-gradient/)
